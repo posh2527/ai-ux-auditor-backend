@@ -22,9 +22,58 @@ async function runLighthouseScan(url) {
 const router = express.Router();
 
 // URL endpoint (existing)
+// URL endpoint (basic working version)
 router.post('/url', async (req, res) => {
-  // ... your existing code (keep as-is)
+  const { url, projectType = 'general web app', framework = 'react' } = req.body;
+
+  if (!url) {
+    return res.status(400).json({ error: 'URL is required' });
+  }
+
+  try {
+    // 1) Take screenshot from URL
+    const screenshotUrl = await takeScreenshot(url);
+
+    // 2) Fake Lighthouse scan for now
+    const lighthouseResult = await runLighthouseScan(url);
+
+    // 3) Basic fake UX issues (you can replace with real AI later)
+    const issues = [
+      {
+        id: 'nav-visibility',
+        type: 'ux',
+        title: 'Navigation may not be prominent enough',
+        severity: 'medium',
+        description: 'Top navigation links might not stand out clearly.',
+        suggestion: 'Increase contrast and spacing for primary navigation items.'
+      }
+    ];
+
+    // 4) Build response object
+    const report = {
+      url,
+      screenshotUrl,
+      scores: {
+        ux: 85,
+        accessibility: lighthouseResult.scores.accessibility,
+        performance: lighthouseResult.scores.performance || 75
+      },
+      issues,
+      accessibility: lighthouseResult.accessibilityIssues,
+      aiSuggestions: [
+        'Improve color contrast on primary buttons.',
+        'Increase tap target size for mobile navigation.'
+      ],
+      meta: { projectType, framework }
+    };
+
+    return res.json(report);   // ✅ IMPORTANT: send response
+  } catch (error) {
+    console.error('Error in /analyze/url:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
 });
+
 
 // ✅ NEW MULTI-INPUT (for 10 features)
 router.post('/multi', async (req, res) => {
