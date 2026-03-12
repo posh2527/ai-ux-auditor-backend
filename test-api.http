@@ -1,0 +1,10 @@
+### Test health
+GET http://localhost:4000/health
+
+### Test analyze URL
+POST http://localhost:4000/analyze/url
+Content-Type: application/json
+
+{
+  "url": "https://example.com"
+}

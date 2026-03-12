@@ -1,0 +1,30 @@
+{
+  "name": "ai-ux-auditor-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "@huggingface/inference": "^4.13.15",
+    "axios": "^1.13.6",
+    "cheerio": "^1.2.0",
+    "chrome-launcher": "^1.2.1",
+    "cors": "^2.8.6",
+    "deepseek-api": "^1.0.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "fs-extra": "^11.3.4",
+    "lighthouse": "^13.0.3",
+    "multer": "^2.1.1",
+    "openai": "^6.27.0",
+    "playwright": "^1.58.2"
+  }
+}
